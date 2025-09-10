@@ -97,5 +97,5 @@ This project is licensed under the MIT License.
 
 ## 👨‍💻 Author
 **Your Name**  
-- GitHub: [@yourusername](https://github.com/stackedbyife)  
-- LinkedIn: [Your LinkedIn](www.linkedin.com/in/ifeoluwa-koleoso-1602051b3)  
+- GitHub: [@StackedbyIfe😎](https://github.com/stackedbyife)  
+- LinkedIn: [Ife😎](www.linkedin.com/in/ifeoluwa-koleoso-1602051b3)  
