@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link rel="shortcut icon" href="images/logo.png">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo" title="My App">
+            <img src="images/logo.png" alt="">
+            <h2>M<span class="danger">A</span></h2>
+        </div>
+        <div class="navbar">
+            <a href="home.html" class="active">
+                <span class="material-icons-sharp">home</span>
+                <h3>Home</h3>
+            </a>
+            <a href="password.html">
+                <span class="material-icons-sharp">password</span>
+                <h3>Change Password</h3>
+            </a>
+            <a href="#" id="logoutBtn">
+                <span class="material-icons-sharp">logout</span>
+                <h3>Logout</h3>
+            </a>
+        </div>
+        <div class="theme-toggler">
+            <span class="material-icons-sharp active">light_mode</span>
+            <span class="material-icons-sharp">dark_mode</span>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <aside>
+            <div class="profile">
+                <div class="top">
+                    <div class="profile-photo">
+                        <img src="images/profile-1.jpg" alt="">
+                    </div>
+                    <div class="info">
+                        <p>Hey, <b id="userName">User</b></p>
+                        <small class="text-muted" id="userId">0000</small>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main -->
+        <main>
+            <h1 id="welcome">Welcome!</h1>
+            <div class="subjects">
+                <div>
+                    <span class="material-icons-sharp">school</span>
+                    <h3>Learning Progress</h3>
+                    <h2>75%</h2>
+                    <div class="progress">
+                        <svg><circle cx="38" cy="38" r="36"></circle></svg>
+                        <div class="number"><p>75%</p></div>
+                    </div>
+                    <small class="text-muted">Lessons completed</small>
+                </div>
+
+                <div class="mth">
+                    <span class="material-icons-sharp">event</span>
+                    <h3>Weekly Activity</h3>
+                    <h2>60%</h2>
+                    <div class="progress">
+                        <svg><circle cx="38" cy="38" r="36"></circle></svg>
+                        <div class="number"><p>60%</p></div>
+                    </div>
+                    <small class="text-muted">Tasks finished this week</small>
+                </div>
+
+                <div class="cs">
+                    <span class="material-icons-sharp">groups</span>
+                    <h3>Engagement</h3>
+                    <h2>90%</h2>
+                    <div class="progress">
+                        <svg><circle cx="38" cy="38" r="36"></circle></svg>
+                        <div class="number"><p>90%</p></div>
+                    </div>
+                    <small class="text-muted">Team interactions</small>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Fetch logged-in user data
+        fetch("/home-data", { credentials: "include" })
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById("welcome").textContent = "Welcome, " + data.firstName + "!";
+                document.getElementById("userName").textContent = data.firstName;
+                document.getElementById("userId").textContent = data.userId || "N/A";
+            })
+            .catch(() => {
+                document.getElementById("welcome").textContent = "Not logged in";
+                document.getElementById("welcome").style.color = "red";
+            });
+
+        // Logout
+        document.getElementById("logoutBtn").addEventListener("click", (e) => {
+            e.preventDefault();
+            fetch("/logout", { method: "POST", credentials: "include" })
+                .then(() => window.location.href = "/static/index.html");
+        });
+
+    //The dark mode feature
+    const themeToggler = document.querySelector(".theme-toggler");
+    const body = document.body;
+    const [lightIcon, darkIcon] = themeToggler.querySelectorAll("span");
+
+    themeToggler.addEventListener("click", () => {
+        body.classList.toggle("dark-theme");
+
+        lightIcon.classList.toggle("active");
+        darkIcon.classList.toggle("active");
+
+        if (body.classList.contains("dark-theme")) {
+            localStorage.setItem("theme", "dark");
+        } else {
+            localStorage.setItem("theme", "light");
+        }
+    });
+
+    window.addEventListener("DOMContentLoaded", () => {
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme === "dark") {
+            body.classList.add("dark-theme");
+            lightIcon.classList.remove("active");
+            darkIcon.classList.add("active");
+        }
+    });
+    </script>
+</body>
+</html>
