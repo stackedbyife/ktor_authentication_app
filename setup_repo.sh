@@ -1,3 +1,35 @@
+#!/bin/bash
+
+# Create .gitignore
+cat > .gitignore <<EOL
+# Kotlin / Java build
+/build/
+/.gradle/
+!gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
+
+# IntelliJ / Android Studio
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+EOL
+
+echo ".gitignore created ✅"
+
+# Create README.md
+cat > README.md <<'EOL'
 # 🚀 Ktor Backend Application
 
 A backend service built with [Ktor](https://ktor.io), Kotlin, and Gradle.  
@@ -99,3 +131,8 @@ This project is licensed under the MIT License.
 **Your Name**  
 - GitHub: [@yourusername](https://github.com/yourusername)  
 - LinkedIn: [Your LinkedIn](https://linkedin.com/in/your-link)  
+EOL
+
+echo "README.md created ✅"
+
+echo "All done! Now run: git add . && git commit -m 'Add README and gitignore' && git push"
